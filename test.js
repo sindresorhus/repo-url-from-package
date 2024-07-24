@@ -1,69 +1,80 @@
 import test from 'ava';
 import repoUrlFromPackage from './index.js';
 
-test('should return repo URL from repository field', t => {
-	const packageJson = {
-		name: 'my-package',
-		repository: 'https://github.com/user/repo.git',
-	};
-
+const verifyResult = test.macro(async (t, {packageJson, expectations}) => {
 	const result = repoUrlFromPackage(packageJson);
-	t.is(result.url, 'https://github.com/user/repo');
-	t.deepEqual(result.warnings, []);
+
+	const assertions = await t.try(tt => {
+		tt.log('expectations:', expectations);
+		tt.like(result, expectations);
+	});
+
+	assertions.commit({retainLogs: !assertions.passed});
 });
 
-test('should return repo URL from repository field #2', t => {
-	const packageJson = {
+test('should return repo URL from repository field', verifyResult, {
+	packageJson: {
+		name: 'my-package',
+		repository: 'https://github.com/user/repo.git',
+	},
+	expectations: {
+		url: 'https://github.com/user/repo',
+		warnings: [],
+	},
+});
+
+test('should return repo URL from repository.url field', verifyResult, {
+	packageJson: {
 		name: 'my-package',
 		repository: {
 			url: 'https://github.com/user/repo.git',
 		},
-	};
-
-	const result = repoUrlFromPackage(packageJson);
-	t.is(result.url, 'https://github.com/user/repo');
-	t.deepEqual(result.warnings, []);
+	},
+	expectations: {
+		url: 'https://github.com/user/repo',
+		warnings: [],
+	},
 });
 
-test('should return warning if repository field is a website', t => {
-	const packageJson = {
+test('should return warning if repository field is a website', verifyResult, {
+	packageJson: {
 		name: 'my-package',
 		repository: {
 			url: 'https://example.com',
 		},
-	};
-
-	const result = repoUrlFromPackage(packageJson);
-	t.is(result.url, 'https://example.com');
-	t.deepEqual(result.warnings, [
-		'The `repository` field in package.json should point to a Git repo and not a website. Please open an issue or pull request on `my-package`.',
-	]);
+	},
+	expectations: {
+		url: 'https://example.com',
+		warnings: [
+			'The `repository` field in package.json should point to a Git repo and not a website. Please open an issue or pull request on `my-package`.',
+		],
+	},
 });
 
-test('should use homepage field if repository field is invalid', t => {
-	const packageJson = {
+test('should return warning if repository field is invalid', verifyResult, {
+	packageJson: {
 		name: 'my-package',
 		repository: {
 			url: 'invalid-url',
 		},
 		homepage: 'https://example.com',
-	};
-
-	const result = repoUrlFromPackage(packageJson);
-	t.is(result.url, 'https://example.com');
-	t.deepEqual(result.warnings, [
-		'The `repository` field in package.json is invalid. Please open an issue or pull request on `my-package`. Using the `homepage` field instead.',
-	]);
+	},
+	expectations: {
+		url: undefined,
+		warnings: [
+			'The `repository` field in package.json is invalid. Please open an issue or pull request on `my-package`.',
+		],
+	},
 });
 
-test('should return warning if both repository and homepage fields are missing', t => {
-	const packageJson = {
+test('should return warning if repository field is missing', verifyResult, {
+	packageJson: {
 		name: 'my-package',
-	};
-
-	const result = repoUrlFromPackage(packageJson);
-	t.is(result.url, undefined);
-	t.deepEqual(result.warnings, [
-		'No `homepage` field found in package.json.',
-	]);
+	},
+	expectations: {
+		url: undefined,
+		warnings: [
+			'No `repository` field found in package.json.',
+		],
+	},
 });
