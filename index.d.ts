@@ -1,12 +1,7 @@
 export type PackageJson = {
 	name: string;
-	homepage?: string;
-	repository?:
-	| string
-	| {
-		type: string;
+	repository?: string | {
 		url: string;
-		directory?: string;
 	};
 };
 

@@ -51,7 +51,7 @@ test('should return warning if repository field is a website', verifyResult, {
 	},
 });
 
-test('should use homepage field if repository field is invalid', verifyResult, {
+test('should return warning if repository field is invalid', verifyResult, {
 	packageJson: {
 		name: 'my-package',
 		repository: {
@@ -60,21 +60,21 @@ test('should use homepage field if repository field is invalid', verifyResult, {
 		homepage: 'https://example.com',
 	},
 	expectations: {
-		url: 'https://example.com',
+		url: undefined,
 		warnings: [
-			'The `repository` field in package.json is invalid. Please open an issue or pull request on `my-package`. Using the `homepage` field instead.',
+			'The `repository` field in package.json is invalid. Please open an issue or pull request on `my-package`.',
 		],
 	},
 });
 
-test('should return warning if both repository and homepage fields are missing', verifyResult, {
+test('should return warning if repository field is missing', verifyResult, {
 	packageJson: {
 		name: 'my-package',
 	},
 	expectations: {
 		url: undefined,
 		warnings: [
-			'No `repository` or `homepage` field found in package.json.',
+			'No `repository` field found in package.json.',
 		],
 	},
 });
