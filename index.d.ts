@@ -1,12 +1,24 @@
+/**
+A subset of fields from a `package.json` object needed to extract a repo URL.
+
+For a more fully-featured type, see [`type-fest`](https://github.com/sindresorhus/type-fest/blob/main/source/package-json.d.ts).
+*/
 export type PackageJson = {
+	/**
+	The name of the package.
+	*/
 	name: string;
+
+	/**
+	The location of the source code repository.
+	*/
 	repository?: string | {
 		url: string;
 	};
 };
 
 /**
-Extracts the repo URL from a package.json object.
+Extracts the repo URL from a `package.json` object.
 
 @example
 ```
