@@ -7,7 +7,7 @@ export default function repoUrlFromPackage(packageJson) {
 
 	if (!repoUrl) {
 		if (!packageJson.homepage) {
-			warnings.push('No `homepage` field found in package.json.');
+			warnings.push('No `repository` or `homepage` field found in package.json.');
 			return {warnings};
 		}
 
