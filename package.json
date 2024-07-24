@@ -1,0 +1,46 @@
+{
+	"name": "repo-url-from-package",
+	"version": "0.0.0",
+	"description": "Extracts the repo URL from a package.json object",
+	"license": "MIT",
+	"repository": "sindresorhus/repo-url-from-package",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=18"
+	},
+	"scripts": {
+		"test": "xo && ava && tsc index.d.ts"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"repo",
+		"repository",
+		"url",
+		"package",
+		"json",
+		"parse"
+	],
+	"dependencies": {
+		"github-url-from-git": "^1.5.0",
+		"is-url-superb": "^6.1.0"
+	},
+	"devDependencies": {
+		"ava": "^6.1.3",
+		"typescript": "^5.5.4",
+		"xo": "^0.59.2"
+	}
+}
