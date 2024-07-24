@@ -5,13 +5,13 @@ For a more fully-featured type, see [`type-fest`](https://github.com/sindresorhu
 */
 export type PackageJson = {
 	/**
- 	The name of the package.
-  	*/
+	The name of the package.
+	*/
 	name: string;
 
 	/**
- 	Location for the code repository.
-  	*/
+	Location for the code repository.
+	*/
 	repository?: string | {
 		url: string;
 	};
