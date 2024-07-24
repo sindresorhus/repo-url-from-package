@@ -22,4 +22,12 @@ console.log(url);
 
 ## API
 
-See the [types](index.d.ts) for now.
+### repoUrlFromPackage(packageJson)
+
+Returns an object with the possible parsed `url` and an array of any `warnings`.
+
+#### packageJson
+
+Type: `object`
+
+A `package.json` object.
