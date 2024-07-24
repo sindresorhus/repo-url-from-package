@@ -10,7 +10,7 @@ export type PackageJson = {
 	name: string;
 
 	/**
-	Location for the code repository.
+	The location of the source code repository.
 	*/
 	repository?: string | {
 		url: string;
