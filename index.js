@@ -1,5 +1,12 @@
 import githubUrlFromGit from 'github-url-from-git';
-import isUrl from 'is-url-superb';
+
+function isUrl(string) {
+	try {
+		return Boolean(new URL(string));
+	} catch {
+		return false;
+	}
+}
 
 export default function repoUrlFromPackage(packageJson) {
 	if (!packageJson.repository) {
