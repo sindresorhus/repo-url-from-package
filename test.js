@@ -78,3 +78,14 @@ test('should return warning if repository field is missing', verifyResult, {
 		],
 	},
 });
+
+test.failing('should support user/repo format', verifyResult, {
+	packageJson: {
+		name: 'my-package',
+		repository: 'user/repo',
+	},
+	expectations: {
+		url: 'https://github.com/user/repo',
+		warnings: [],
+	},
+});
