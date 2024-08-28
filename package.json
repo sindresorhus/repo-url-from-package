@@ -35,8 +35,7 @@
 		"parse"
 	],
 	"dependencies": {
-		"github-url-from-git": "^1.5.0",
-		"is-url-superb": "^6.1.0"
+		"github-url-from-git": "^1.5.0"
 	},
 	"devDependencies": {
 		"ava": "^6.1.3",
