@@ -89,3 +89,25 @@ test('should support user/repo format', verifyResult, {
 		warnings: [],
 	},
 });
+
+test('should support github:user/repo format', verifyResult, {
+	packageJson: {
+		name: 'my-package',
+		repository: 'github:user/repo',
+	},
+	expectations: {
+		url: 'https://github.com/user/repo',
+		warnings: [],
+	},
+});
+
+test('should support user/repo#branch format', verifyResult, {
+	packageJson: {
+		name: 'my-package',
+		repository: 'user/repo#branch',
+	},
+	expectations: {
+		url: 'https://github.com/user/repo/tree/branch',
+		warnings: [],
+	},
+});

@@ -16,9 +16,11 @@ export default function repoUrlFromPackage(packageJson) {
 		repoUrl = repoUrl.slice(7);
 	}
 
+	let branch;
 	const match = repoUrl.match(githubShorthandRegex);
 	if (match) {
-		repoUrl = match[2] ? `https://github.com/${match[1]}/tree/${match[2].slice(1)}` : `https://github.com/${match[1]}`;
+		repoUrl = `https://github.com/${match[1]}`;
+		branch = match[2] ? match[2].slice(1) : undefined;
 	}
 
 	let url = githubUrlFromGit(repoUrl);
@@ -32,6 +34,10 @@ export default function repoUrlFromPackage(packageJson) {
 			warnings.push(`The \`repository\` field in package.json is invalid. Please open an issue or pull request on \`${packageJson.name}\`.`);
 			return {warnings};
 		}
+	}
+
+	if (branch) {
+		url += `/tree/${branch}`;
 	}
 
 	return {url, warnings};
