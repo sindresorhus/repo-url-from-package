@@ -1,5 +1,12 @@
 import githubUrlFromGit from 'github-url-from-git';
-import isUrl from 'is-url-superb';
+
+function isUrl(string) {
+	try {
+		return Boolean(new URL(string));
+	} catch {
+		return false;
+	}
+}
 
 // Look for GitHub shorthand inputs such as "user/repo#branch".
 const githubShorthandRegex = /^(\w(?:-?\w){0,38}\/[\w.-]{1,100})(#\S*)?$/;
