@@ -1,6 +1,6 @@
 {
 	"name": "repo-url-from-package",
-	"version": "0.2.0",
+	"version": "1.0.0",
 	"description": "Extracts the repo URL from a package.json object",
 	"license": "MIT",
 	"repository": "sindresorhus/repo-url-from-package",
